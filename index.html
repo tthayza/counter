@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap"
+      rel="stylesheet"
+    />
+    <title>Contador</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Staatliches', cursive;
+    }
+
+    body {
+      min-height: 100vh;
+      background-image: linear-gradient(70deg, pink, salmon);
+      display: flex;
+      place-items: center;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 40%;
+      margin-left: 30%;
+    }
+
+    .buttons-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    button {
+      border-radius: 10px;
+      cursor: pointer;
+      width: 80px;
+    }
+
+    h1 {
+      padding: 15%;
+      display: flex;
+      font-size: 32px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    button:hover {
+      background-color: black;
+      color: white;
+    }
+  </style>
+
+  <body>
+    <div class="container">
+      <div id="counter">
+        <h1>
+          <p id="hh"></p>
+          :
+          <p id="mm"></p>
+          :
+          <p id="ss"></p>
+        </h1>
+      </div>
+      <div class="buttons-box">
+        <button onclick="start()" class="initial">Iniciar</button>
+        <button onclick="pause()" class="pause">Pausar</button>
+        <button onclick="stop()" class="zero">Zerar</button>
+      </div>
+    </div>
+    <script>
+      var hh = 0
+      var mm = 0
+      var ss = 0
+      var cron
+
+      update()
+
+      function update() {
+        document.getElementById('hh').innerHTML = String(hh).padStart(2, '0')
+
+        document.getElementById('mm').innerHTML = String(mm).padStart(2, '0')
+
+        document.getElementById('ss').innerHTML = String(ss).padStart(2, '0')
+      }
+
+      function start() {
+        cron = setInterval(() => {
+          aumentartempo()
+        }, 10)
+      }
+
+      function pause() {
+        clearInterval(cron)
+      }
+
+      function stop() {
+        clearInterval(cron)
+        hh = 0
+        mm = 0
+        ss = 0
+
+        update()
+      }
+      function aumentartempo() {
+        if (ss < 59) {
+          ss = ss + 1
+        } else {
+          ss = 0
+          if (mm < 59) {
+            mm = mm + 1
+          } else {
+            mm = 0
+            hh = hh + 1
+          }
+        }
+        update()
+      }
+    </script>
+  </body>
+</html>
